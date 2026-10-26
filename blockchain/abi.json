@@ -1,0 +1,115 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "bytes32", "name": "eventHash", "type": "bytes32" },
+      { "indexed": false, "internalType": "string", "name": "userId", "type": "string" },
+      { "indexed": false, "internalType": "uint8", "name": "threatScore", "type": "uint8" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "AccessEventLogged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "uint256", "name": "alertId", "type": "uint256" },
+      { "indexed": true, "internalType": "bytes32", "name": "eventHash", "type": "bytes32" },
+      { "indexed": false, "internalType": "string", "name": "threatLevel", "type": "string" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "ThreatAlertCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "uint256", "name": "alertId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "resolver", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "ThreatAlertResolved",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "eventHash", "type": "bytes32" },
+      { "internalType": "string", "name": "userId", "type": "string" },
+      { "internalType": "string", "name": "action", "type": "string" },
+      { "internalType": "string", "name": "tableName", "type": "string" },
+      { "internalType": "uint8", "name": "threatScore", "type": "uint8" },
+      { "internalType": "string", "name": "ipfsReportHash", "type": "string" }
+    ],
+    "name": "logAccessEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "eventHash", "type": "bytes32" },
+      { "internalType": "string", "name": "threatLevel", "type": "string" }
+    ],
+    "name": "createThreatAlert",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "alertId", "type": "uint256" }],
+    "name": "resolveAlert",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "eventHash", "type": "bytes32" }],
+    "name": "getAccessEvent",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "bytes32", "name": "eventHash", "type": "bytes32" },
+          { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+          { "internalType": "string", "name": "userId", "type": "string" },
+          { "internalType": "string", "name": "action", "type": "string" },
+          { "internalType": "string", "name": "tableName", "type": "string" },
+          { "internalType": "uint8", "name": "threatScore", "type": "uint8" },
+          { "internalType": "string", "name": "ipfsReportHash", "type": "string" }
+        ],
+        "internalType": "struct DataShieldAudit.AccessEvent",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllEventHashes",
+    "outputs": [{ "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllAlertIds",
+    "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getEventCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAlertCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

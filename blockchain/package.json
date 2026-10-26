@@ -1,0 +1,19 @@
+{
+  "name": "datashield-blockchain",
+  "version": "1.0.0",
+  "description": "DataShield AI - Blockchain Audit Trail",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "node": "npx hardhat node",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:polygon": "npx hardhat run scripts/deploy.js --network polygon_amoy"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.0"
+  }
+}

@@ -1,0 +1,128 @@
+# ==============================================================================
+# DataShield AI — Git Ignore Specification
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment & Sensitive Credentials (CRITICAL - DO NOT PUSH)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+secrets/
+private_key*
+
+# ------------------------------------------------------------------------------
+# 2. Python & Bytecode Caches
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ------------------------------------------------------------------------------
+# 3. Virtual Environments
+# ------------------------------------------------------------------------------
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ------------------------------------------------------------------------------
+# 4. Node.js & Frontend Artifacts
+# ------------------------------------------------------------------------------
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/build/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.turbo/
+
+# ------------------------------------------------------------------------------
+# 5. Machine Learning Models & Heavy Binaries
+# ------------------------------------------------------------------------------
+saved_models/*.pt
+saved_models/*.joblib
+saved_models/*.onnx
+saved_models/*.bin
+saved_models/*.h5
+!saved_models/.gitkeep
+*.pkl
+*.model
+
+# ------------------------------------------------------------------------------
+# 6. Datasets & Vector Databases
+# ------------------------------------------------------------------------------
+data/chroma/
+.chroma/
+data/synthetic_access_logs.csv
+*.sqlite3
+*.db
+
+# ------------------------------------------------------------------------------
+# 7. Blockchain / Smart Contract Compilation Artifacts
+# ------------------------------------------------------------------------------
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain/
+blockchain/typechain-types/
+hardhat.config.js.bak
+
+# ------------------------------------------------------------------------------
+# 8. Testing & Coverage
+# ------------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ------------------------------------------------------------------------------
+# 9. IDE, Editors & Operating System Files
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~

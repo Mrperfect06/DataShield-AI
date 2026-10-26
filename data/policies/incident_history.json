@@ -1,0 +1,112 @@
+[
+  {
+    "incident_id": "INC-2024-001",
+    "date": "2024-01-15T08:23:00Z",
+    "summary": "A junior analyst in the marketing department downloaded 45,000 customer records including email addresses and phone numbers to a personal laptop via CSV export.",
+    "threat_type": "data_exfiltration",
+    "severity": "critical",
+    "user_involved": "user_mktg_034",
+    "resolution": "The export was detected within 12 minutes by the DLP system. The user's access was immediately suspended, the exported file was remotely wiped, and an investigation confirmed the user intended to use the data for an unauthorized side project. The user's employment was terminated.",
+    "lessons_learned": "Bulk export permissions were overly broad for junior roles. Role-based export limits were subsequently implemented with a 1,000-record cap for non-manager roles.",
+    "indicators": ["bulk_download", "csv_export", "pii_columns_accessed", "unusual_export_volume", "personal_device_detected"]
+  },
+  {
+    "incident_id": "INC-2024-002",
+    "date": "2024-02-28T03:47:00Z",
+    "summary": "A database administrator accessed production medical records at 3:47 AM from a residential IP address outside the corporate VPN, accessing 12,000 patient records.",
+    "threat_type": "unauthorized_access",
+    "severity": "critical",
+    "user_involved": "user_dba_007",
+    "resolution": "The after-hours access triggered an automated alert. Investigation revealed the DBA's credentials had been compromised via a phishing attack. All sessions were terminated, credentials were rotated, and a forensic review confirmed no data was exfiltrated beyond the initial query results. Mandatory phishing awareness training was rolled out.",
+    "lessons_learned": "After-hours access to medical records now requires step-up MFA verification regardless of role. VPN-only enforcement was tightened for all DBA accounts.",
+    "indicators": ["after_hours_access", "non_vpn_access", "medical_records_access", "residential_ip", "high_row_count"]
+  },
+  {
+    "incident_id": "INC-2024-003",
+    "date": "2024-03-12T14:15:00Z",
+    "summary": "An engineer's account showed logins from New York and Singapore within a 20-minute window, followed by queries against the payments database.",
+    "threat_type": "impossible_travel",
+    "severity": "critical",
+    "user_involved": "user_eng_019",
+    "resolution": "The impossible travel detection system locked the account immediately. Investigation confirmed the Singapore session was from a compromised VPN credential sold on the dark web. All API keys and credentials associated with the account were rotated, and the compromised VPN provider was blocklisted.",
+    "lessons_learned": "Geo-velocity checks were enhanced with device fingerprinting. Hardware security keys were mandated for all engineering accounts with database access.",
+    "indicators": ["impossible_travel", "dual_geography", "payment_data_access", "vpn_anomaly", "rapid_session_switch"]
+  },
+  {
+    "incident_id": "INC-2024-004",
+    "date": "2024-04-05T11:30:00Z",
+    "summary": "A departing employee in the finance department ran 47 queries against salary and compensation tables over 3 hours, downloading comprehensive compensation data.",
+    "threat_type": "data_exfiltration",
+    "severity": "high",
+    "user_involved": "user_fin_022",
+    "resolution": "The pattern was detected by the behavioral anomaly model as a significant deviation from the user's normal access pattern. Access was suspended, and HR confirmed the user had submitted their resignation the previous day. Legal counsel was engaged, and the user was reminded of their NDA obligations.",
+    "lessons_learned": "Automated enhanced monitoring is now triggered for all users who enter the offboarding pipeline. Access to sensitive compensation data is immediately restricted upon resignation notice.",
+    "indicators": ["departing_employee", "salary_data_access", "high_query_frequency", "bulk_data_access", "role_deviation"]
+  },
+  {
+    "incident_id": "INC-2024-005",
+    "date": "2024-05-18T09:12:00Z",
+    "summary": "A contractor account attempted to access 6 different production tables outside their project scope, including SSN and credit card data, over a 2-hour window.",
+    "threat_type": "privilege_escalation",
+    "severity": "high",
+    "user_involved": "user_contractor_011",
+    "resolution": "The access control system denied all unauthorized queries. After the third denied attempt, the account was automatically suspended. The contracting firm was notified, and the contractor was replaced. An audit of all contractor permissions was initiated.",
+    "lessons_learned": "Contractor accounts now have stricter time-boxed access windows and are limited to explicitly whitelisted tables. Denied access attempts trigger faster lockout (2 attempts instead of 3).",
+    "indicators": ["contractor_account", "multiple_denied_queries", "pii_table_access", "scope_violation", "repeated_privilege_escalation"]
+  },
+  {
+    "incident_id": "INC-2024-006",
+    "date": "2024-06-22T16:45:00Z",
+    "summary": "An automated service account began executing SELECT * queries against the users table every 30 seconds, returning full PII datasets totaling 2.3 million records over 4 hours.",
+    "threat_type": "data_exfiltration",
+    "severity": "critical",
+    "user_involved": "svc_analytics_003",
+    "resolution": "The anomalous query pattern was initially missed because service accounts had relaxed monitoring rules. A security team member noticed the spike during a routine dashboard review and killed the process. The service account credentials had been embedded in a compromised CI/CD pipeline. All service account credentials were rotated and vault-based credential management was mandated.",
+    "lessons_learned": "Service accounts now have the same behavioral monitoring as human accounts. Query rate limits were implemented for all service accounts, and SELECT * on PII tables was blocked at the query parser level.",
+    "indicators": ["service_account", "select_star_query", "high_frequency_queries", "pii_table_access", "massive_row_count", "automated_pattern"]
+  },
+  {
+    "incident_id": "INC-2024-007",
+    "date": "2024-07-09T22:30:00Z",
+    "summary": "A senior developer used direct database connections to bypass the application layer and access production credit card data, circumventing the tokenization system.",
+    "threat_type": "policy_violation",
+    "severity": "high",
+    "user_involved": "user_dev_045",
+    "resolution": "Database-level audit logs caught the direct connection. The developer claimed they were debugging a payment processing issue but failed to follow the incident debugging protocol. Access was revoked, the developer received a formal warning, and the issue was reported to the PCI-DSS compliance team.",
+    "lessons_learned": "Direct database connections to production are now blocked for all non-DBA roles. A secure debugging proxy with built-in tokenization was deployed for development troubleshooting.",
+    "indicators": ["direct_db_connection", "bypass_application_layer", "credit_card_access", "after_hours_access", "pci_data_exposure"]
+  },
+  {
+    "incident_id": "INC-2024-008",
+    "date": "2024-08-14T10:05:00Z",
+    "summary": "Multiple failed login attempts (87 in 10 minutes) targeted 15 different user accounts from a botnet of 23 IP addresses across 8 countries.",
+    "threat_type": "brute_force",
+    "severity": "high",
+    "user_involved": "multiple_accounts",
+    "resolution": "The distributed brute-force pattern was detected within 3 minutes. All source IPs were blocked at the WAF level, targeted accounts were locked and owners notified, and no successful compromises were confirmed. Threat intelligence was shared with the industry ISAC.",
+    "lessons_learned": "Rate limiting was enhanced with IP reputation scoring. Account lockout now considers distributed patterns (same target from multiple IPs) in addition to single-source failures.",
+    "indicators": ["distributed_brute_force", "multiple_source_ips", "high_failure_rate", "international_ips", "botnet_pattern"]
+  },
+  {
+    "incident_id": "INC-2024-009",
+    "date": "2024-09-03T13:20:00Z",
+    "summary": "A data scientist ran an unreviewed machine learning training job that ingested raw PII data from the medical_records table without applying the required anonymization pipeline.",
+    "threat_type": "policy_violation",
+    "severity": "medium",
+    "user_involved": "user_ds_008",
+    "resolution": "The pipeline monitoring system flagged the direct PII ingestion. The training job was terminated, all intermediate model artifacts were deleted to prevent PII memorization, and the data scientist was required to retake the data handling certification. The anonymization pipeline was made a mandatory pre-step in all ML training workflows.",
+    "lessons_learned": "ML training pipelines now enforce a mandatory anonymization check gate. Raw PII access for ML workloads requires explicit approval from the privacy team.",
+    "indicators": ["ml_training_job", "raw_pii_ingestion", "medical_records_access", "missing_anonymization", "data_minimization_violation"]
+  },
+  {
+    "incident_id": "INC-2024-010",
+    "date": "2024-10-20T07:55:00Z",
+    "summary": "A GDPR data subject access request (DSAR) revealed that customer data scheduled for deletion 6 months prior was still present and queryable in 3 production tables.",
+    "threat_type": "retention_violation",
+    "severity": "medium",
+    "user_involved": "system_retention_job",
+    "resolution": "The retention enforcement job had silently failed due to a schema migration that renamed the deletion timestamp column. The data was immediately purged, the DSAR was fulfilled, and the supervisory authority was proactively notified of the delay. The retention job was rewritten with schema-change resilience and end-to-end validation.",
+    "lessons_learned": "Retention enforcement jobs now include schema validation checks and generate alerts on zero-deletion runs. Monthly retention audits were implemented to verify purge completeness.",
+    "indicators": ["retention_failure", "gdpr_violation", "stale_data", "schema_migration_impact", "dsar_triggered_discovery"]
+  }
+]
